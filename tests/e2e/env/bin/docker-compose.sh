@@ -20,6 +20,7 @@ if [[ $1 ]]; then
 	if [[ $TRAVIS_MARIADB_VERSION =~ ^[0-9]+\.[0-9]+ ]]; then
 		export DC_MARIADB_VERSION=$TRAVIS_MARIADB_VERSION
 	else
+		git ls-remote --tags https://github.com/mariadb/server.git | grep -E '^mariadb-\d\d\.\d+(.\d+)*$'
 		MVER=`git ls-remote --tags https://github.com/mariadb/server.git | cut -f3 -d/ | grep -E '^mariadb-\d\d\.\d+(.\d+)*$' | tail -n 1`
 		export DC_MARIADB_VERSION=${MVER/mariadb-/}
 	fi
